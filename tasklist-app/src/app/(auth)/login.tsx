@@ -1,62 +1,43 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
-import { useAuth } from "../../context/auth-context";
-import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { useAuth } from '../../context/auth-context';
 
 export default function LoginScreen() {
   const { signInWithGoogle, isLoading } = useAuth();
-  const [error, setError] = useState<string | null>(null);
+  const [signInLoading, setSignInLoading] = useState(false);
 
-  const handleSignIn = async () => {
+  const handleGoogleSignIn = async () => {
     try {
-      setError(null);
+      setSignInLoading(true);
       await signInWithGoogle();
-    } catch (err) {
-      setError("Failed to sign in. Please try again.");
-      console.error(err);
+    } catch (error) {
+      Alert.alert('Error', 'Failed to sign in with Google');
+    } finally {
+      setSignInLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Feather name="check-circle" size={80} color="#007AFF" />
-        <Text style={styles.title}>Tasklist App</Text>
-        <Text style={styles.subtitle}>Organize your tasks efficiently</Text>
+        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.subtitle}>Sign in to continue</Text>
 
-        {error && (
-          <View style={styles.errorContainer}>
-            <Feather name="alert-circle" size={20} color="#FF3B30" />
-            <Text style={styles.errorText}>{error}</Text>
-          </View>
-        )}
+        <TouchableOpacity
+          style={styles.googleButton}
+          onPress={handleGoogleSignIn}
+          disabled={signInLoading}
+        >
+          {signInLoading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <>
+              <Text style={styles.googleIcon}>G</Text>
+              <Text style={styles.googleButtonText}>Sign in with Google</Text>
+            </>
+          )}
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity
-        style={[styles.googleButton, isLoading && styles.disabledButton]}
-        onPress={handleSignIn}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <>
-            <Feather name="chrome" size={24} color="#fff" />
-            <Text style={styles.buttonText}>Continue with Google</Text>
-          </>
-        )}
-      </TouchableOpacity>
-
-      <Text style={styles.debugText}>
-        Status: {isLoading ? "Signing in..." : "Ready to sign in"}
-      </Text>
     </View>
   );
 }
@@ -64,62 +45,41 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    padding: 20,
-    justifyContent: "space-between",
+    backgroundColor: '#fff',
   },
   content: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
-    marginTop: 20,
+    fontWeight: 'bold',
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666",
-    textAlign: "center",
+    color: '#666',
+    marginBottom: 40,
   },
   googleButton: {
-    backgroundColor: "#007AFF",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
-    borderRadius: 12,
-    gap: 10,
-    marginBottom: 20,
-  },
-  disabledButton: {
-    opacity: 0.7,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  errorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFE5E5",
-    padding: 12,
+    flexDirection: 'row',
+    backgroundColor: '#4285F4',
+    paddingHorizontal: 24,
+    paddingVertical: 14,
     borderRadius: 8,
-    marginTop: 20,
-    gap: 8,
+    alignItems: 'center',
+    gap: 12,
   },
-  errorText: {
-    color: "#FF3B30",
-    fontSize: 14,
-    flex: 1,
+  googleIcon: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
-  debugText: {
-    textAlign: "center",
-    color: "#666",
-    fontSize: 12,
-    marginBottom: 10,
+  googleButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });

@@ -1,7 +1,23 @@
 import { Tabs } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from '../../context/auth-context';
+import { useRouter } from 'expo-router';
 
 export default function AppLayout() {
+  const { signOut } = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      router.replace('/(auth)/login');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <Tabs
       screenOptions={{
@@ -20,6 +36,11 @@ export default function AppLayout() {
           title: "Home",
           tabBarIcon: ({ color, size }) => (
             <Feather name="home" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={handleSignOut} style={{ marginRight: 15 }}>
+              <Ionicons name="log-out-outline" size={24} color="#dc3545" />
+            </TouchableOpacity>
           ),
         }}
       />

@@ -20,12 +20,10 @@ export default function Index() {
     }
   }, [user, isLoading]);
 
-  // Manual navigation option
   const goToLogin = () => {
     router.push("/(auth)/login");
   };
 
-  // Show what's happening for debugging
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <ActivityIndicator size="large" color="#007AFF" />

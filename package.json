@@ -1,0 +1,8 @@
+{
+  "name": "tasklist-app",
+  "version": "1.0.0",
+  "scripts": {
+    "upload": "git diff --quiet && git diff --cached --quiet && echo 'No changes to commit' || (git add . && git commit -m \"auto-update\" && git push origin main)",
+    "download": "git fetch origin && git reset --hard origin/main && git clean -fd && echo 'Project updated from GitHub'"
+  }
+}
