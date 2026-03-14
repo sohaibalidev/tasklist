@@ -1,0 +1,13 @@
+{
+    "entry": [
+        "src/app/**/*.tsx"
+    ],
+    "project": [
+        "src/**/*.{ts,tsx}"
+    ],
+    "ignore": [
+        "expo-router/entry",
+        "expo-env.d.ts",
+        "app.config.ts"
+    ]
+}
