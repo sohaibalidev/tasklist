@@ -11,6 +11,7 @@ import { Feather } from '@expo/vector-icons';
 import { PROJECT_ICONS, ProjectIcon } from '../../constants/icons';
 import { COLORS } from '../../constants/colors';
 import { Project } from '../../types/database';
+import { Button } from '../ui/Button';
 
 interface ProjectFormProps {
     onClose: () => void;
@@ -58,9 +59,11 @@ export const ProjectForm = ({
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>{isEditing ? 'Edit Project' : 'New Project'}</Text>
-                <TouchableOpacity onPress={onClose}>
-                    <Feather name="x" size={24} color={COLORS.ui.text} />
-                </TouchableOpacity>
+                <Button
+                    icon="x"
+                    iconColor={'black'}
+                    onPress={onClose}
+                />
             </View>
 
             <View style={styles.inputContainer}>
@@ -89,21 +92,21 @@ export const ProjectForm = ({
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-                style={[styles.submitButton, !title.trim() && styles.submitButtonDisabled]}
+            <Button
+                variant="submit"
+                text={isEditing ? 'Update' : 'Create'}
                 onPress={handleSubmit}
                 disabled={!title.trim()}
-            >
-                <Text style={styles.submitButtonText}>{isEditing ? 'Update' : 'Create'}</Text>
-            </TouchableOpacity>
+            />
 
             {showIconPicker && (
                 <View style={styles.pickerOverlay}>
                     <View style={styles.pickerHeader}>
                         <Text style={styles.pickerTitle}>Choose Icon</Text>
-                        <TouchableOpacity onPress={() => setShowIconPicker(false)}>
-                            <Feather name="x" size={24} color={COLORS.ui.text} />
-                        </TouchableOpacity>
+                        <Button
+                            icon="x"
+                            onPress={() => setShowIconPicker(false)}
+                        />
                     </View>
                     <FlatList
                         data={PROJECT_ICONS}
@@ -131,9 +134,6 @@ const styles = StyleSheet.create({
     iconSelector: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: COLORS.ui.border, borderRadius: 12, padding: 12 },
     selectedIconPreview: { flexDirection: 'row', alignItems: 'center', gap: 12 },
     selectedIconName: { fontSize: 16, color: COLORS.ui.text },
-    submitButton: { backgroundColor: COLORS.priority.medium, padding: 16, borderRadius: 12, alignItems: 'center' },
-    submitButtonDisabled: { opacity: 0.5 },
-    submitButtonText: { color: '#FFF', fontWeight: '600' },
     pickerOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: COLORS.ui.background, zIndex: 20 },
     pickerHeader: { flexDirection: 'row', justifyContent: 'space-between', padding: 20, borderBottomWidth: 1, borderBottomColor: COLORS.ui.border },
     pickerTitle: { fontSize: 18, fontWeight: '600' },

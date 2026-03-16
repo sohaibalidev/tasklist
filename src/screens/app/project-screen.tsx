@@ -18,6 +18,7 @@ import { ErrorMessage } from '../../components/ui/error-message';
 import { ConfirmationDialog } from '../../components/ui/confirmation-dialog';
 import { COLORS } from '../../constants/colors';
 import { getProjectIcon, getProjectIconColor } from '../../constants/icons';
+import { Button } from '../../components/ui/Button';
 
 export default function ProjectScreen() {
     const { id } = useLocalSearchParams<{ id: string }>();
@@ -200,14 +201,13 @@ export default function ProjectScreen() {
                 destructive
             />
 
-            <TouchableOpacity
-                style={styles.fab}
+            <Button
+                variant="fab"
+                icon="plus"
                 onPress={() => {
                     openModal('create-task', { projectId: project.id });
                 }}
-            >
-                <Feather name="plus" size={24} color={COLORS.ui.background} />
-            </TouchableOpacity>
+            />
         </SafeAreaView>
     );
 }

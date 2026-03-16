@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, ScrollView } fr
 import { useAuth } from "../../context/auth-context";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
+import { Button } from "../../components/ui/Button";
 
 type UserMetadata = {
   full_name?: string;
@@ -11,7 +12,6 @@ type UserMetadata = {
 
 export default function SettingsScreen() {
   const { user, signOut } = useAuth();
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   const metadata = user?.user_metadata as UserMetadata | undefined;
 
@@ -28,33 +28,6 @@ export default function SettingsScreen() {
         onPress: () => signOut(),
       },
     ]);
-  };
-
-  const handleNotificationToggle = () => {
-    setNotificationsEnabled(!notificationsEnabled);
-    Alert.alert(
-      "Notifications",
-      `Notifications ${!notificationsEnabled ? "enabled" : "disabled"}`
-    );
-  };
-
-  const handleClearData = () => {
-    Alert.alert(
-      "Clear All Data",
-      "This will delete all local data. Your tasks and projects in the cloud will remain. Continue?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Clear",
-          style: "destructive",
-          onPress: () => Alert.alert("Success", "Local data cleared"),
-        },
-      ]
-    );
-  };
-
-  const handleFeedback = () => {
-    Alert.alert("Feedback", "Thanks for your feedback! 📧 support@taskapp.com");
   };
 
   return (
@@ -78,20 +51,6 @@ export default function SettingsScreen() {
 
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingLeft}>
-            <Feather name="bell" size={20} color="#007AFF" />
-            <Text style={styles.settingText}>Notifications</Text>
-          </View>
-          <TouchableOpacity onPress={handleNotificationToggle}>
-            <Feather
-              name={notificationsEnabled ? "toggle-right" : "toggle-left"}
-              size={24}
-              color={notificationsEnabled ? "#007AFF" : "#8E8E93"}
-            />
-          </TouchableOpacity>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.settingItem}>
-          <View style={styles.settingLeft}>
             <Feather name="moon" size={20} color="#007AFF" />
             <Text style={styles.settingText}>Dark Mode</Text>
           </View>
@@ -102,7 +61,7 @@ export default function SettingsScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Data Management</Text>
 
-        <TouchableOpacity style={styles.settingItem} onPress={handleClearData}>
+        <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingLeft}>
             <Feather name="trash-2" size={20} color="#FF3B30" />
             <Text style={[styles.settingText, styles.warningText]}>Clear Local Data</Text>
@@ -122,7 +81,7 @@ export default function SettingsScreen() {
           <Feather name="chevron-right" size={20} color="#8E8E93" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.settingItem} onPress={handleFeedback}>
+        <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingLeft}>
             <Feather name="message-square" size={20} color="#007AFF" />
             <Text style={styles.settingText}>Send Feedback</Text>
@@ -139,10 +98,14 @@ export default function SettingsScreen() {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-        <Feather name="log-out" size={20} color="#FF3B30" />
-        <Text style={styles.signOutText}>Sign Out</Text>
-      </TouchableOpacity>
+      <Button
+        variant="signout"
+        icon="log-out"
+        iconSize={20}
+        text="Sign Out"
+        style={styles.signOutButton}
+        onPress={handleSignOut}
+      />
 
       <Text style={styles.footer}>TaskApp © 2026</Text>
     </ScrollView>
@@ -237,13 +200,10 @@ const styles = StyleSheet.create({
   },
   signOutButton: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
-    gap: 8,
     marginTop: 32,
     marginHorizontal: 20,
     paddingVertical: 14,
-    backgroundColor: "#FFFFFF",
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#FF3B30",

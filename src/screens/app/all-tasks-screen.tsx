@@ -17,6 +17,7 @@ import { LoadingSpinner } from '../../components/ui/loading-spinner';
 import { ErrorMessage } from '../../components/ui/error-message';
 import { COLORS } from '../../constants/colors';
 import { useLocalSearchParams } from 'expo-router';
+import { Button } from '../../components/ui/Button';
 
 export default function AllTasksScreen() {
     const params = useLocalSearchParams<{
@@ -25,7 +26,7 @@ export default function AllTasksScreen() {
     }>();
 
     const { openModal } = useModal();
-    const [searchQuery, setSearchQuery] = useState(''); 
+    const [searchQuery, setSearchQuery] = useState('');
 
     const [filter, setFilter] = useState<{
         status?: 'todo' | 'in-progress' | 'done';
@@ -108,9 +109,12 @@ export default function AllTasksScreen() {
                     onChangeText={setSearchQuery}
                 />
                 {searchQuery !== '' && (
-                    <TouchableOpacity onPress={() => setSearchQuery('')}>
-                        <Feather name="x" size={20} color={COLORS.ui.textSecondary} />
-                    </TouchableOpacity>
+                    <Button
+                        icon="x"
+                        iconSize={20}
+                        iconColor={COLORS.ui.textSecondary}
+                        onPress={() => setSearchQuery('')}
+                    />
                 )}
             </View>
 
@@ -142,12 +146,11 @@ export default function AllTasksScreen() {
                 }}
             />
 
-            <TouchableOpacity
-                style={styles.fab}
+            <Button
+                variant="fab"
+                icon="plus"
                 onPress={() => openModal('create-task')}
-            >
-                <Feather name="plus" size={24} color={COLORS.ui.background} />
-            </TouchableOpacity>
+            />
         </SafeAreaView>
     );
 }

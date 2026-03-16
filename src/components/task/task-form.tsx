@@ -12,6 +12,7 @@ import { Feather } from '@expo/vector-icons';
 import { Task, TaskPriority, Project } from '../../types/database';
 import { COLORS } from '../../constants/colors';
 import { PriorityBadge } from '../ui/priority-badge';
+import { Button } from '../ui/Button';
 
 interface TaskFormProps {
     onClose: () => void;
@@ -68,9 +69,10 @@ export const TaskForm = ({
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>{isEditing ? 'Edit Task' : 'New Task'}</Text>
-                <TouchableOpacity onPress={onClose}>
-                    <Feather name="x" size={24} color={COLORS.ui.text} />
-                </TouchableOpacity>
+                <Button
+                    icon="x"
+                    onPress={onClose}
+                />
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -131,13 +133,12 @@ export const TaskForm = ({
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity
-                    style={[styles.submitButton, !title.trim() && styles.submitButtonDisabled]}
+                <Button
+                    variant="submit"
+                    text={isEditing ? 'Update' : 'Create'}
                     onPress={handleSubmit}
                     disabled={!title.trim()}
-                >
-                    <Text style={styles.submitButtonText}>{isEditing ? 'Update' : 'Create'}</Text>
-                </TouchableOpacity>
+                />
             </ScrollView>
 
             <Modal
@@ -150,9 +151,10 @@ export const TaskForm = ({
                     <View style={styles.pickerContent}>
                         <View style={styles.pickerHeader}>
                             <Text style={styles.pickerTitle}>Select Project</Text>
-                            <TouchableOpacity onPress={() => setShowProjectPicker(false)}>
-                                <Feather name="x" size={24} color={COLORS.ui.text} />
-                            </TouchableOpacity>
+                            <Button
+                                icon="x"
+                                onPress={() => setShowProjectPicker(false)}
+                            />
                         </View>
 
                         <ScrollView>
@@ -277,21 +279,6 @@ const styles = StyleSheet.create({
     placeholderText: {
         fontSize: 16,
         color: COLORS.ui.textSecondary,
-    },
-    submitButton: {
-        backgroundColor: COLORS.priority.medium,
-        padding: 16,
-        borderRadius: 12,
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    submitButtonDisabled: {
-        opacity: 0.5,
-    },
-    submitButtonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontWeight: '600',
     },
     pickerModal: {
         flex: 1,

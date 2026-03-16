@@ -19,6 +19,7 @@ export const COLORS = {
         border: '#E5E5EA',
         error: '#FF3B30',
         success: '#34C759',
+        primary: '#FF9F0A'
     },
 
     projectBg: {

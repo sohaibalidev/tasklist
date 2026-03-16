@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useAuth } from '../../context/auth-context';
+import { Button } from '../../components/ui/Button';
 
 export default function LoginScreen() {
   const { signInWithGoogle } = useAuth();
@@ -34,21 +35,13 @@ export default function LoginScreen() {
           <Text style={styles.welcomeSubtitle}>Sign in to access your tasks and projects</Text>
         </View>
 
-        <TouchableOpacity
-          style={[styles.googleButton, signInLoading && styles.googleButtonDisabled]}
+        <Button
+          variant="google"
+          text="Continue with Google"
+          loading={signInLoading}
           onPress={handleGoogleSignIn}
           disabled={signInLoading}
-          activeOpacity={0.8}
-        >
-          {signInLoading ? (
-            <ActivityIndicator color="#fff" size="small" />
-          ) : (
-            <View style={styles.buttonContent}>
-              <Text style={styles.googleIcon}>G</Text>
-              <Text style={styles.googleButtonText}>Continue with Google</Text>
-            </View>
-          )}
-        </TouchableOpacity>
+        />
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>Your tasks are securely synced</Text>

@@ -57,13 +57,13 @@ export const ModalContainer = () => {
             <Pressable style={styles.overlayTouchable} onPress={handleClose} />
 
             <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                behavior={'height'}
                 style={styles.keyboardAvoidWrapper}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 0} 
+                keyboardVerticalOffset={0}
             >
                 <View style={styles.modalContent}>
                     <ScrollView
-                        contentContainerStyle={styles.scrollContent}
+                        contentContainerStyle={[styles.scrollContent, { flexGrow: 0 }]}
                         keyboardShouldPersistTaps="handled"
                         showsVerticalScrollIndicator={false}
                     >
@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.ui.background,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        paddingBottom: 20,
         maxHeight: '80%',
         width: '100%',
     },

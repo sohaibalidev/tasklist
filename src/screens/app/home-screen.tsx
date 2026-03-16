@@ -20,6 +20,7 @@ import { EmptyState } from '../../components/ui/empty-state';
 import { ConfirmationDialog } from '../../components/ui/confirmation-dialog';
 import { COLORS } from '../../constants/colors';
 import { useRouter } from 'expo-router';
+import { Button } from '../../components/ui/Button';
 
 type UserMetadata = {
   full_name?: string;
@@ -153,13 +154,18 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Projects</Text>
-            <TouchableOpacity
-              style={styles.addButton}
+            <Button
+              variant="primary"
+              icon="plus"
+              iconSize={20}
+              text="New"
               onPress={() => openModal('create-project')}
-            >
-              <Feather name="plus" size={20} color={COLORS.ui.background} />
-              <Text style={styles.addButtonText}>New</Text>
-            </TouchableOpacity>
+              style={{
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+                borderRadius: 20,
+              }}
+            />
           </View>
 
           {projectsWithCount.length === 0 ? (
@@ -186,12 +192,11 @@ export default function HomeScreen() {
         <View style={{ height: 80 }} />
       </ScrollView>
 
-      <TouchableOpacity
-        style={styles.fab}
+      <Button
+        variant="fab"
+        icon="plus"
         onPress={() => openModal('create-task')}
-      >
-        <Feather name="plus" size={24} color={COLORS.ui.background} />
-      </TouchableOpacity>
+      />
 
       <ConfirmationDialog
         visible={!!projectToDelete}
