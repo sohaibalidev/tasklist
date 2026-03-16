@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { useAuth } from '../../context/auth-context';
 import { Button } from '../../components/ui/Button';
 

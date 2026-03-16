@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Modal, KeyboardAvoidingView, Platform, Pressable, ScrollView } from 'react-native';
+import { View, StyleSheet, Modal, KeyboardAvoidingView, Pressable, ScrollView } from 'react-native';
 import { useModal } from '../../context/modal-context';
 import { useProjects } from '../../hooks/use-project';
 import { useTasks } from '../../hooks/use-tasks';

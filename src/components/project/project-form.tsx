@@ -12,6 +12,7 @@ import { PROJECT_ICONS, ProjectIcon } from '../../constants/icons';
 import { COLORS } from '../../constants/colors';
 import { Project } from '../../types/database';
 import { Button } from '../ui/Button';
+import { Input } from '../ui/input';
 
 interface ProjectFormProps {
     onClose: () => void;
@@ -66,16 +67,12 @@ export const ProjectForm = ({
                 />
             </View>
 
-            <View style={styles.inputContainer}>
-                <Text style={styles.label}>Project Name</Text>
-                <TextInput
-                    style={styles.input}
-                    value={title}
-                    onChangeText={setTitle}
-                    placeholder="e.g., Work"
-                    placeholderTextColor={COLORS.ui.textSecondary}
-                />
-            </View>
+            <Input
+                label="Project Name"
+                value={title}
+                onChangeText={setTitle}
+                placeholder="e.g., Work"
+            />
 
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Project Icon</Text>
@@ -130,7 +127,6 @@ const styles = StyleSheet.create({
     title: { fontSize: 20, fontWeight: '600', color: COLORS.ui.text },
     inputContainer: { marginBottom: 20 },
     label: { fontSize: 14, color: COLORS.ui.textSecondary, marginBottom: 8 },
-    input: { borderWidth: 1, borderColor: COLORS.ui.border, borderRadius: 12, padding: 12, color: COLORS.ui.text },
     iconSelector: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: COLORS.ui.border, borderRadius: 12, padding: 12 },
     selectedIconPreview: { flexDirection: 'row', alignItems: 'center', gap: 12 },
     selectedIconName: { fontSize: 16, color: COLORS.ui.text },

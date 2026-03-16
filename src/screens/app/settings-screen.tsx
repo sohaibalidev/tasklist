@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, ScrollView } from "react-native";
 import { useAuth } from "../../context/auth-context";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
 import { Button } from "../../components/ui/Button";
 
 type UserMetadata = {

@@ -13,6 +13,7 @@ import { Task, TaskPriority, Project } from '../../types/database';
 import { COLORS } from '../../constants/colors';
 import { PriorityBadge } from '../ui/priority-badge';
 import { Button } from '../ui/Button';
+import { Input } from '../ui/input';
 
 interface TaskFormProps {
     onClose: () => void;
@@ -76,28 +77,21 @@ export const TaskForm = ({
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Title <Text style={styles.required}>*</Text></Text>
-                    <TextInput
-                        style={styles.input}
-                        value={title}
-                        onChangeText={setTitle}
-                        placeholder="Enter task title"
-                        placeholderTextColor={COLORS.ui.textSecondary}
-                    />
-                </View>
+                <Input
+                    label="Title"
+                    required={true}
+                    value={title}
+                    onChangeText={setTitle}
+                    placeholder="Enter task title"
+                />
 
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Description (Optional)</Text>
-                    <TextInput
-                        style={[styles.input, styles.textArea]}
-                        value={description}
-                        onChangeText={setDescription}
-                        placeholder="Add more details"
-                        placeholderTextColor={COLORS.ui.textSecondary}
-                        multiline
-                    />
-                </View>
+                <Input
+                    label="Description"
+                    variant="textarea"
+                    value={description}
+                    onChangeText={setDescription}
+                    placeholder="Add details"
+                />
 
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Priority</Text>

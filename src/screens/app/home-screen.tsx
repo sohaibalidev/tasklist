@@ -8,7 +8,6 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Feather } from '@expo/vector-icons';
 import { useAuth } from '../../context/auth-context';
 import { useProjects } from '../../hooks/use-project';
 import { useTasks } from '../../hooks/use-tasks';

@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
     Alert,
     TextInput,
 } from 'react-native';
@@ -18,6 +17,7 @@ import { ErrorMessage } from '../../components/ui/error-message';
 import { COLORS } from '../../constants/colors';
 import { useLocalSearchParams } from 'expo-router';
 import { Button } from '../../components/ui/Button';
+import { Input } from '../../components/ui/input';
 
 export default function AllTasksScreen() {
     const params = useLocalSearchParams<{
@@ -99,24 +99,15 @@ export default function AllTasksScreen() {
                 </Text>
             </View>
 
-            <View style={styles.searchContainer}>
-                <Feather name="search" size={18} color={COLORS.ui.textSecondary} />
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder="Search tasks by title or description"
-                    placeholderTextColor={COLORS.ui.textSecondary}
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                />
-                {searchQuery !== '' && (
-                    <Button
-                        icon="x"
-                        iconSize={20}
-                        iconColor={COLORS.ui.textSecondary}
-                        onPress={() => setSearchQuery('')}
-                    />
-                )}
-            </View>
+            <Input
+                variant="search"
+                leftIcon="search"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                placeholder="Search..."
+                showClearButton
+                onClear={() => setSearchQuery('')}
+            />
 
             <TaskList
                 tasks={filteredTasks}
@@ -178,39 +169,5 @@ const styles = StyleSheet.create({
     taskCount: {
         fontSize: 14,
         color: COLORS.ui.textSecondary,
-    },
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: COLORS.ui.card,
-        margin: 0,
-        borderBottomWidth: 1,
-        borderBottomColor: COLORS.ui.border,
-        paddingHorizontal: 16,
-        paddingVertical: 10,
-        gap: 8,
-    },
-    searchInput: {
-        flex: 1,
-        fontSize: 15,
-        margin: -5,
-        color: COLORS.ui.text,
-        paddingVertical: 0,
-    },
-    fab: {
-        position: 'absolute',
-        bottom: 24,
-        right: 24,
-        width: 56,
-        height: 56,
-        borderRadius: 28,
-        backgroundColor: COLORS.priority.medium,
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-    },
+    }
 });
