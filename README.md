@@ -19,7 +19,7 @@ A **React Native Expo application** for managing tasks and projects with a **Sup
 
 # Screenshots
 
-<table>
+<table align="center">
   <tr>
     <td><img src="screenshots/home.png" width="100%"></td>
     <td><img src="screenshots/project.png" width="100%"></td>
