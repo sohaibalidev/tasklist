@@ -14,7 +14,6 @@ export const PriorityBadge = ({ priority, size = 'medium' }: PriorityBadgeProps)
     return (
         <View style={[
             styles.badge,
-            { backgroundColor: color + '20' }, 
             size === 'small' ? styles.smallBadge : styles.mediumBadge,
         ]}>
             <View style={[styles.dot, { backgroundColor: color }]} />

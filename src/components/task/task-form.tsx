@@ -105,8 +105,10 @@ export const TaskForm = ({
                                 key={p}
                                 style={[
                                     styles.priorityOption,
-                                    priority === p && styles.priorityOptionSelected,
-                                    { borderColor: COLORS.priority[p] },
+                                    {
+                                        borderColor: COLORS.priority[p],
+                                        backgroundColor: priority === p ? COLORS.priority[p] + 40 : 'transparent',
+                                    },
                                 ]}
                                 onPress={() => setPriority(p)}
                             >

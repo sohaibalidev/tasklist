@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Modal, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
+import { View, StyleSheet, Modal, KeyboardAvoidingView, Platform, Pressable, ScrollView } from 'react-native';
 import { useModal } from '../../context/modal-context';
 import { useProjects } from '../../hooks/use-project';
 import { useTasks } from '../../hooks/use-tasks';
@@ -54,19 +54,18 @@ export const ModalContainer = () => {
             transparent={true}
             onRequestClose={handleClose}
         >
-            <View style={styles.modalOverlay}>
-                <Pressable
-                    style={styles.overlayTouchable}
-                    onPress={handleClose}
-                />
+            <Pressable style={styles.overlayTouchable} onPress={handleClose} />
 
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    style={styles.modalContentWrapper}
-                >
-                    <Pressable
-                        style={styles.modalContent}
-                        onStartShouldSetResponder={() => true}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.keyboardAvoidWrapper}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 0} 
+            >
+                <View style={styles.modalContent}>
+                    <ScrollView
+                        contentContainerStyle={styles.scrollContent}
+                        keyboardShouldPersistTaps="handled"
+                        showsVerticalScrollIndicator={false}
                     >
                         {activeModal === 'create-task' && (
                             <TaskForm
@@ -102,33 +101,31 @@ export const ModalContainer = () => {
                                 isEditing={true}
                             />
                         )}
-                    </Pressable>
-                </KeyboardAvoidingView>
-            </View>
+                    </ScrollView>
+                </View>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };
 
 const styles = StyleSheet.create({
-    modalOverlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
     overlayTouchable: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         ...StyleSheet.absoluteFillObject,
-        zIndex: 1, 
     },
-    modalContentWrapper: {
-        position: 'absolute', 
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 2,
+    keyboardAvoidWrapper: {
+        flex: 1,
+        justifyContent: 'flex-end',
     },
     modalContent: {
         backgroundColor: COLORS.ui.background,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        maxHeight: '90%',
+        paddingBottom: 20,
+        maxHeight: '80%',
+        width: '100%',
+    },
+    scrollContent: {
+        flexGrow: 1,
     },
 });
