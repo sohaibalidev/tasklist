@@ -27,7 +27,7 @@ export default function LoginScreen() {
           <View style={styles.iconCircle}>
             <Text style={styles.iconText}>✓</Text>
           </View>
-          <Text style={styles.appName}>Tasklist</Text>
+          <Text style={styles.appName}>Todo App</Text>
           <Text style={styles.appTagline}>Stay organized, get things done</Text>
         </View>
 

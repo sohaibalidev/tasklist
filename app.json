@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Tasklist",
-    "slug": "tasklist",
+    "name": "Todo App",
+    "slug": "todo-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,10 +16,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sohaibalidev.tasklist"
+      "bundleIdentifier": "com.sohaibalidev.todoapp"
     },
     "android": {
-      "package": "com.sohaibalidev.tasklist",
+      "package": "com.sohaibalidev.todoapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
@@ -40,7 +40,7 @@
       "@react-native-google-signin/google-signin",
       "expo-font"
     ],
-    "scheme": "com.sohaibalidev.tasklist",
+    "scheme": "com.sohaibalidev.todoapp",
     "extra": {
       "router": {},
       "eas": {
